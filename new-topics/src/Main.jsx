@@ -2,6 +2,10 @@ import React from "react";
 import ParentComponent from "./Components/ParentComponent";
 import FormClassComponent from "./Components/FormClassComponent";
 import FormFunctionalComponent from "./Components/FormFunctionalComponent";
+import FormComponent from "./Components/FormComponent";
+import UncontrolledComponent from "./Components/UncontrolledComponent";
+import Validation from "./Components/Validation";
+import CountingState from "./Components/CountingState";
 
 function Main() {
   const logedIn = true;
@@ -25,7 +29,11 @@ function Main() {
     // <h1>Hello Main Component</h1>
     // <ParentComponent />
     // <FormClassComponent />
-    <FormFunctionalComponent />
+    // <FormFunctionalComponent />
+    // <FormComponent />
+    // <UncontrolledComponent />
+    // <Validation />
+    <CountingState />
   );
 }
 
