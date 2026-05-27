@@ -1,5 +1,5 @@
 {
-  "name": "form-handling",
+  "name": "new",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,15 +7,14 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
-    "formik": "^2.4.9",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-router-dom": "^7.15.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "yup": "^1.7.1"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
