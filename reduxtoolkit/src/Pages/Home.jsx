@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/cartSlice";
-import { fetchProducts } from "../Redux/productSlice";
-import { STATUSES } from "../Redux/productSlice";
+import { fetchProducts, STATUSES } from "../Redux/productSlice";
 
 function Home() {
   const dispatch = useDispatch();
