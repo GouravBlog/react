@@ -1,0 +1,13 @@
+ul {
+  list-style: none;
+}
+
+ul li {
+  background-color: red;
+  color: yellow;
+}
+
+.new {
+  font-size: 20px;
+  background-color: red;
+}
