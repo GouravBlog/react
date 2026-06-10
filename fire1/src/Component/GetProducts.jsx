@@ -1,4 +1,11 @@
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  where,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../firbase/firebaseConfig";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -10,12 +17,14 @@ function GetProducts() {
   async function fetchdata() {
     const productsRef = collection(db, "products");
     try {
-      const querySnapshot = await getDocs(productsRef);
+      let q = query(productsRef, where("price", "==", "2000"), where());
+      const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setData(data);
+      console.log(data);
     } catch (error) {
       console.log("err", error);
       alert("Something Went Wrong");
