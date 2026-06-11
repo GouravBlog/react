@@ -9,6 +9,8 @@ import {
 import { useState, useEffect } from "react";
 import { db } from "../firbase/firebaseConfig";
 import { NavLink, useNavigate } from "react-router-dom";
+import { auth } from "../firbase/firebaseConfig";
+import { signOut } from "firebase/auth";
 
 function GetProducts() {
   const navigate = useNavigate();
@@ -17,8 +19,8 @@ function GetProducts() {
   async function fetchdata() {
     const productsRef = collection(db, "products");
     try {
-      let q = query(productsRef, where("price", "==", "2000"), where());
-      const querySnapshot = await getDocs(q);
+      // let q = query(productsRef, where("price", "==", "2000"), where());
+      const querySnapshot = await getDocs(productsRef);
       const data = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -50,8 +52,23 @@ function GetProducts() {
     }
   }
 
+  async function handleLogout() {
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   return (
     <>
+      <button
+        onClick={handleLogout}
+        style={{ background: "red", color: "#fff", marginBottom: "10px" }}
+      >
+        Logout
+      </button>
       <button onClick={() => navigate("/add-product")}>Add Products</button>
       {data &&
         data.map((prd) => {

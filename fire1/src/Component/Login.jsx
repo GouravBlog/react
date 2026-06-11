@@ -1,44 +1,40 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userAuth } from "../Context/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firbase/firebaseConfig";
+import { auth, googleAuthProvider } from "../firbase/firebaseConfig";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
-function Signup() {
+function Login() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
-    address: "",
   });
-
-  const { signupUserWithEmailAndPassword } = userAuth();
 
   function handleChange(event) {
     setUser({ ...user, [event.target.name]: event.target.value });
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     try {
-      if (user.email == "" || user.password == "" || user.address == "") {
+      if (user.email == "" || user.password == "") {
         alert("all fileds are required");
         return;
       }
-      let authUser = await signupUserWithEmailAndPassword(
-        user.email,
-        user.password,
-      );
-      // console.log(authUser.user.providerData);
-      // console.log(authUser.user);
-      await setDoc(doc(db, "users", authUser.user.uid), {
-        email: user.email,
-        address: user.address,
-        createdAt: new Date(),
-      });
-      navigate("/login");
+      signInWithEmailAndPassword(auth, user.email, user.password);
+      alert("User Login Succesfully");
+      navigate("/");
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async function googleLogin() {
+    try {
+      await signInWithPopup(auth, googleAuthProvider);
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
     }
   }
   return (
@@ -64,20 +60,11 @@ function Signup() {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="">Address:</label>
-          <input
-            type="text"
-            placeholder="Enter Your address"
-            name="address"
-            value={user.address}
-            onChange={handleChange}
-          />
-        </div>
         <button type="submit">Submit</button>
+        <button onClick={googleLogin}>Google Login</button>
       </form>
     </>
   );
 }
 
-export default Signup;
+export default Login;
